@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data files (large — download via Kaggle CLI)
+data/mnist_train.csv
+data/mnist_test.csv
+data/*.zip
+data/*.csv
+
+# Model checkpoints (large binary files)
+outputs/checkpoints/*.pth
+
+# Generated plots and logs (reproducible — not tracked)
+outputs/plots/*.png
+outputs/logs/*.log
+outputs/logs/*.csv
+outputs/reconstructions/
+outputs/comparison_metrics.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Kaggle credentials
+kaggle.json
+.kaggle/
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# MyPy
+.mypy_cache/

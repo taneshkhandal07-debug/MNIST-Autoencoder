@@ -1,0 +1,140 @@
+# =============================================================================
+# MNIST Autoencoder - Central Configuration
+# =============================================================================
+
+project:
+  name: "MNIST Image Reconstruction using Autoencoders"
+  version: "1.0.0"
+  description: "Comparing FFNN, CNN Transpose, and CNN Upsampling Autoencoders"
+
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+paths:
+  data_dir: "data"
+  train_csv: "data/mnist_train.csv"
+  test_csv: "data/mnist_test.csv"
+  outputs_dir: "outputs"
+  checkpoints_dir: "outputs/checkpoints"
+  reconstructions_dir: "outputs/reconstructions"
+  plots_dir: "outputs/plots"
+  logs_dir: "outputs/logs"
+
+# ---------------------------------------------------------------------------
+# Dataset
+# ---------------------------------------------------------------------------
+dataset:
+  image_size: 28
+  image_channels: 1
+  input_dim: 784          # 28 * 28
+  train_size: 48000
+  val_size: 12000
+  normalize_min: 0.0
+  normalize_max: 1.0
+
+# ---------------------------------------------------------------------------
+# Training
+# ---------------------------------------------------------------------------
+training:
+  epochs: 50
+  batch_size: 128
+  learning_rate: 0.001
+  optimizer: "adam"       # adam | sgd | rmsprop
+  weight_decay: 1.0e-5
+  random_seed: 42
+  num_workers: 2
+  pin_memory: true
+
+# ---------------------------------------------------------------------------
+# Scheduler
+# ---------------------------------------------------------------------------
+scheduler:
+  name: "reduce_on_plateau"   # reduce_on_plateau | cosine | step
+  patience: 5
+  factor: 0.5
+  min_lr: 1.0e-6
+  step_size: 10               # used if scheduler is "step"
+  gamma: 0.1                  # used if scheduler is "step"
+
+# ---------------------------------------------------------------------------
+# Early Stopping
+# ---------------------------------------------------------------------------
+early_stopping:
+  enabled: true
+  patience: 10
+  min_delta: 1.0e-5
+
+# ---------------------------------------------------------------------------
+# Gradient Clipping
+# ---------------------------------------------------------------------------
+gradient_clipping:
+  enabled: true
+  max_norm: 1.0
+
+# ---------------------------------------------------------------------------
+# Model Architectures
+# ---------------------------------------------------------------------------
+models:
+  # Feed Forward Autoencoder
+  ffnn:
+    name: "ffnn_autoencoder"
+    latent_dim: 32
+    encoder_dims: [512, 256, 128, 64, 32]
+    decoder_dims: [64, 128, 256, 512]
+    activation: "relu"
+    output_activation: "sigmoid"
+    weight_init: "normal"
+    weight_init_std: 0.01
+
+  # CNN Autoencoder with Transposed Convolutions
+  cnn_transpose:
+    name: "cnn_transpose_autoencoder"
+    latent_dim: 32
+    encoder_channels: [1, 32, 64, 128]
+    decoder_channels: [128, 64, 32, 1]
+    kernel_size: 3
+    stride: 2
+    padding: 1
+    output_padding: 1
+    activation: "relu"
+    output_activation: "sigmoid"
+
+  # CNN Autoencoder with Upsampling
+  cnn_upsampling:
+    name: "cnn_upsampling_autoencoder"
+    latent_dim: 32
+    encoder_channels: [1, 32, 64, 128]
+    decoder_channels: [128, 64, 32, 1]
+    kernel_size: 3
+    stride: 2
+    padding: 1
+    upsample_mode: "bilinear"
+    activation: "relu"
+    output_activation: "sigmoid"
+
+# ---------------------------------------------------------------------------
+# Evaluation
+# ---------------------------------------------------------------------------
+evaluation:
+  num_reconstruction_samples: 10
+  pca_components: 2
+  tsne_components: 2
+  tsne_perplexity: 30
+  tsne_n_iter: 1000
+  metrics_csv: "outputs/comparison_metrics.csv"
+
+# ---------------------------------------------------------------------------
+# Visualization
+# ---------------------------------------------------------------------------
+visualization:
+  figure_dpi: 150
+  figure_format: "png"
+  colormap: "hot"
+  num_sample_images: 16
+
+# ---------------------------------------------------------------------------
+# Device
+# ---------------------------------------------------------------------------
+device:
+  auto_detect: true     # automatically use GPU if available
+  preferred: "cuda"     # cuda | mps | cpu
