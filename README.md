@@ -2,7 +2,7 @@
 
 > A production-quality, modular PyTorch implementation comparing three autoencoder architectures for unsupervised MNIST image reconstruction.
 
----
+
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@
 13. [References](#references)
 14. [License](#license)
 
----
+
 
 ## Project Overview
 
@@ -42,7 +42,6 @@ Key engineering features:
 - Early stopping, gradient clipping, and learning-rate scheduling out of the box.
 - Full evaluation suite: MSE, PSNR, SSIM, inference time, model size, and latent-space visualisations.
 
----
 
 ## Architecture Comparison
 
@@ -140,7 +139,7 @@ mnist-autoencoder/
 └── .gitignore
 ```
 
----
+
 
 ## Installation
 
@@ -157,7 +156,7 @@ source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
----
+
 
 ## Dataset Setup
 
@@ -195,7 +194,7 @@ label, pixel0, pixel1, ..., pixel783
 - `label` (0–9): digit class — **ignored during training** (unsupervised)
 - `pixel0…pixel783`: raw 8-bit pixel values (normalised to [0,1] at load time)
 
----
+
 
 ## Training
 
@@ -228,7 +227,7 @@ python train.py --epochs 5
 | Training history CSV | `outputs/logs/<model>_history.csv` |
 | Full log file | `outputs/logs/training.log` |
 
----
+
 
 ## Evaluation
 
@@ -253,7 +252,7 @@ python evaluate.py --model ffnn
 | EDA plots | `outputs/plots/eda_*.png` |
 | Metrics CSV | `outputs/comparison_metrics.csv` |
 
----
+
 
 ## Results
 
@@ -273,7 +272,7 @@ python evaluate.py --model ffnn
 | **CNN + Transpose** | Learns spatial features; good PSNR; end-to-end learned upsampling | Can produce checkerboard artefacts at stride boundaries |
 | **CNN + Upsampling** | Smoothest reconstructions; no checkerboard artefacts; slightly higher SSIM | Very slightly blurrier due to bilinear interpolation |
 
----
+
 
 ## Configuration
 
@@ -301,7 +300,7 @@ models:
     encoder_dims: [512, 256, 128, 64, 32]
 ```
 
----
+
 
 ## Testing
 
@@ -320,7 +319,6 @@ python -m pytest tests/test_project.py --cov=. --cov-report=term-missing
 **Test coverage:**
 - 37 tests across Dataset, Models (all 3), Trainer, EarlyStopping, Checkpoints, Metrics, and Visualization modules.
 
----
 
 ## Design Decisions
 
@@ -344,7 +342,7 @@ Rather than duplicating training logic per architecture, a single `Trainer` clas
 
 Chosen as a balance between compression ratio (24.5×) and reconstruction quality. A smaller latent produces worse SSIM; a larger latent reduces compression benefit.
 
----
+
 
 ## Future Improvements
 
@@ -356,7 +354,7 @@ Chosen as a balance between compression ratio (24.5×) and reconstruction qualit
 - **TensorBoard integration**: Stream loss and metric curves to TensorBoard for real-time monitoring.
 - **ONNX export**: Export trained models to ONNX for deployment in non-Python environments.
 
----
+
 
 ## References
 
@@ -366,14 +364,14 @@ Chosen as a balance between compression ratio (24.5×) and reconstruction qualit
 4. LeCun, Y., Bottou, L., Bengio, Y., & Haffner, P. (1998). *Gradient-based learning applied to document recognition*. Proceedings of the IEEE, 86(11), 2278–2324.
 5. Kaggle Dataset: https://www.kaggle.com/datasets/awsaf49/mnist-dataset
 
----
+
 
 ## Acknowledgements
 
 - Dataset provided by Kaggle user [awsaf49](https://www.kaggle.com/awsaf49).
 - Built with [PyTorch](https://pytorch.org/), [scikit-image](https://scikit-image.org/), [matplotlib](https://matplotlib.org/), and [seaborn](https://seaborn.pydata.org/).
 
----
+
 
 ## License
 
