@@ -1,0 +1,4 @@
+model_name,MSE,PSNR,SSIM,Inference_Time_ms,Parameters,Size_MB,Compression_Ratio
+ffnn_autoencoder,0.00853159,20.6897,0.750827,1.101,1157552,4.4157,24.5
+cnn_transpose_autoencoder,0.00336803,24.7262,0.95454,1.1079,319009,1.2169,24.5
+cnn_upsampling_autoencoder,0.00377499,24.2308,0.958179,1.4236,319009,1.2169,24.5
